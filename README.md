@@ -10,8 +10,8 @@
 <br><br>
 
 # 🛠️ **Trouble Shooting**
-- ✅ **PostgreSQL 의존도 감소를 위한 Redis 캐싱 도입으로 응답 속도 개선**  
-  → **[`📘 정리 문서`](./roles/ntp/tasks/ntp.md)**
+- ✅ **Ansible 자동화 도입! 다중 서버 환경 구성 & 테스트 환경 구축 시간 `폭발적 단축`**  
+  → **[`📘 정리 문서`](./README.md/ansible.md)**
 ---
 <br><br>
 
