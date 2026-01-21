@@ -11,7 +11,7 @@
 
 # 🛠️ **Trouble Shooting**
 - ✅ **Ansible 자동화 도입! 다중 서버 환경 구성 & 환경 구축 시간 폭발적 단축!**  
-  → **[`📘 정리 문서`](./README.md/ansible.md)**
+  → **[`📘 정리 문서`](./docs/ansible.md)**
 ---
 <br><br>
 
