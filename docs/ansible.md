@@ -1,4 +1,9 @@
 # 🔍 Ansible Multi-Server Setup
+> 🔗 **GitHub Repository:**  
+> **[https://github.com/sy0218/Ansible-Multi-Server-Setup](https://github.com/sy0218/Ansible-Multi-Server-Setup)**
+---
+<br><br>
+
 ## 📌 프로젝트 목적
 다중 서버/클러스터 환경에서 인프라와 빅데이터 프레임워크 구축을 **자동화**하여  
 시간과 노력을 단축하고 **효율성을 높이는 것**을 목표로 합니다.
