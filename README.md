@@ -25,7 +25,7 @@
 | 🖲️ **KVM 기반 Ubuntu 서버 설치** | KVM 가상화 서버 설치 및 초기 설정 | **[`📘 매뉴얼 보기`](./docs/kvm_setup.md)** |
 | ⏰ **클러스터 시간 & 클럭 동기화** | 클러스터 서버 시간과 클럭 초기 설정 | **[`📘 매뉴얼 보기`](./docs/sync_time_clock.md)** |
 | 🌐 **Ubuntu Chrome & WebDriver 설치** | 웹 수집용 Chrome과 드라이버 설치 | **[`📘 매뉴얼 보기`](./docs/ubuntu_chrome_webdriver_install.md)** | 
-| 🐳 **Docker 환경 구축** | 컨테이너 개발/운영 환경 설정 | **[`📘 매뉴얼 보기`](./job_all_md/docker.md)** |
+| 🐳 **Docker 환경 구축** | 컨테이너 개발/운영 환경 설정 | **[`📘 매뉴얼 보기`](./docs/docker_setup.md)** |
 | 💾 **PostgreSQL DB** | 설치 및 초기 데이터베이스 설정 | **[`📘 매뉴얼 보기`](./job_all_md/postgresql.md)** |
 | ⚡ **Redis 캐시** | 고속 데이터 처리용 Redis 설정/운영 | **[`📘 매뉴얼 보기`](./job_all_md/redis.md)** |
 | 🦓 **ZooKeeper** | 분산 환경 설정 관리 및 동기화 | **[`📘 매뉴얼 보기`](./job_all_md/zookeeper.md)** |
