@@ -12,7 +12,7 @@
 # 🛠️ **Trouble Shooting**
 - ✅ **Ansible 자동화 도입! 다중 서버 환경 구성 & 환경 구축 시간 폭발적 단축!** → **[`📘 정리 문서`](./docs/ansible.md)**
 - ✅ **Redis 캐시 활용! 대규모 조회/삽입 효율 극대화 & 서버 부하 최소화!** → **[`📘 정리 문서`](./docs/redis.md)**
-- ✅ **Kafka Avro 직렬화 적용! 디스크/네트워크 효율 향상 & 토픽 용량 절감!** → **[`📘 정리 문서`](./docs/kafka_avro.md)`**
+- ✅ **Kafka Avro 직렬화 적용! 디스크/네트워크 효율 향상 & 토픽 용량 절감!** → **[`📘 정리 문서`](./docs/kafka_avro.md)**
 ---
 <br><br>
 
@@ -22,7 +22,7 @@
 
 | **서비스** | **설명** | **매뉴얼** |
 |------------|----------|------------|
-| 🖲️ **KVM 기반 Ubuntu 서버 설치** | KVM 가상화 서버 설치 및 초기 설정 | **[`📘 매뉴얼 보기`](./job_all_md/virsh_ubuntu.md)** |
+| 🖲️ **KVM 기반 Ubuntu 서버 설치** | KVM 가상화 서버 설치 및 초기 설정 | **[`📘 매뉴얼 보기`](./docs/kvm_setup.md)** |
 | ⏰ **클러스터 시간 & 클럭 동기화** | 클러스터 서버 시간과 클럭 초기 설정 | **[`📘 매뉴얼 보기`](./docs/sync_time_clock.md)** |
 | 🌐 **Ubuntu Chrome & WebDriver 설치** | 웹 수집용 Chrome과 드라이버 설치 | **[`📘 매뉴얼 보기`](./job_all_md/ubuntu_chrom_driver.md)** | 
 | 🐳 **Docker 환경 구축** | 컨테이너 개발/운영 환경 설정 | **[`📘 매뉴얼 보기`](./job_all_md/docker.md)** |
