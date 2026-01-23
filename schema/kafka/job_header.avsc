@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "JobHeader",
+  "namespace": "job.crawler",
+  "fields": [
+    { "name": "domain", "type": "string" },
+    { "name": "href", "type": "string" },
+    { "name": "company", "type": "string" },
+    { "name": "title", "type": "string" }
+  ]
+}
