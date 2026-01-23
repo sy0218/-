@@ -1,0 +1,12 @@
+[Unit]
+Description=Zookeeper Server
+After=network.target
+
+[Service]
+Type=forking
+User=root
+Group=root
+SyslogIdentifier=zookeeper-server
+WorkingDirectory=/application/zookeeper
+ExecStart=/application/zookeeper/bin/zkServer.sh start
+ExecStop=/application/zookeeper/bin/zkServer.sh stop

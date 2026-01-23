@@ -1,0 +1,14 @@
+[Unit]
+Description=kafka-server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/application/kafka
+ExecStart=/application/kafka/bin/kafka-server-start.sh /application/kafka/config/server.properties
+ExecStop=/application/kafka/bin/kafka-server-stop.sh
+
+[Install]
+WantedBy=multi-user.target
