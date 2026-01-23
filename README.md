@@ -29,7 +29,7 @@
 | 💾 **PostgreSQL DB** | 설치 및 초기 데이터베이스 설정 | **[`📘 매뉴얼 보기`](./docs/postgresql_setup.md)** |
 | ⚡ **Redis 캐시** | 고속 데이터 처리용 Redis 설정/운영 | **[`📘 매뉴얼 보기`](./docs/redis_setup.md)** |
 | 🦓 **ZooKeeper** | 분산 환경 설정 관리 및 동기화 | **[`📘 매뉴얼 보기`](./docs/zookeeper_setup.md)** |
-| 📡 **Kafka** | 데이터 스트리밍 플랫폼 구축/활용 | **[`📘 매뉴얼 보기`](./job_all_md/kafka.md)** |
+| 📡 **Kafka** | 데이터 스트리밍 플랫폼 구축/활용 | **[`📘 매뉴얼 보기`](./docs/kafka_setup.md)** |
 | 🐘 **Hadoop** | 분산 시스템 클러스터 설치/설정 | **[`📘 매뉴얼 보기`](./job_all_md/hadoop_manual.md)** |
 | 🐝 **Hive** | 데이터 웨어하우스 설치/운영 | **[`📘 매뉴얼 보기`](./job_all_md/hive_manual.md)** |
 | 🔍 **Elasticsearch** | 검색엔진 클러스터 설치/설정 | **[`📘 매뉴얼 보기`](./job_all_md/elasticsearch_manual.md)** |
