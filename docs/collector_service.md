@@ -1,4 +1,3 @@
----
 # 📡 collector.service (Job Header Scraper)
 > 구인구직 사이트 채용 정보를 자동으로 수집하는 **백그라운드 서비스**입니다.
 
