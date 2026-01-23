@@ -16,9 +16,7 @@
 |--------|------|
 | `collector.service` | systemd 유닛 파일 (서비스 관리) |
 | `collector.sh` | 환경 변수 로드 및 서비스 시작/중지 스크립트 |
-| `collector_class.py` | 도메인별 잡 실행 및 종료 감지 |
-| `Job_Seleium_class.py` | 사이트별 크롤러 (Selenium 제어) |
-| `Seleium_class.py` | 자동 스크롤, Redis/Kafka Hook |
+| `collector.py` | 도메인별 잡 실행 및 종료 감지 |
 | `job.conf` | 환경 변수 설정 파일 |
 | `collector.properties` | 도메인/URL/XPath/스키마 설정 |
 | `config_log.py` | 로그 설정 (날짜별 파일 생성) |
@@ -36,7 +34,7 @@ systemd (collector.service)
    │
    └─ collector.sh start
           │
-          └─ collector_class.py (_main)
+          └─ collector.py (_main)
                  │
                  ├─ 환경 변수 및 설정 로드
                  ├─ Redis 연결 (중복 체크)
