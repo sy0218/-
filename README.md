@@ -25,6 +25,7 @@
 | 🖲️ **KVM 기반 Ubuntu 서버 설치** | KVM 가상화 서버 설치 및 초기 설정 | **[`📘 매뉴얼 보기`](./docs/kvm_setup.md)** |
 | ⏰ **클러스터 시간 & 클럭 동기화** | 클러스터 서버 시간과 클럭 초기 설정 | **[`📘 매뉴얼 보기`](./docs/sync_time_clock.md)** |
 | 🌐 **Ubuntu Chrome & WebDriver 설치** | 웹 수집용 Chrome과 드라이버 설치 | **[`📘 매뉴얼 보기`](./docs/ubuntu_chrome_webdriver_install.md)** | 
+| 📂 **NFS 서버 & 클라이언트 구축** | NFS 공유 디렉토리 및 마운트 설정 | **[`📘 매뉴얼 보기`](./docs/nfs_setup.md)** |
 | 🐳 **Docker 환경 구축** | 컨테이너 개발/운영 환경 설정 | **[`📘 매뉴얼 보기`](./docs/docker_setup.md)** |
 | 💾 **PostgreSQL DB** | 설치 및 초기 데이터베이스 설정 | **[`📘 매뉴얼 보기`](./docs/postgresql_setup.md)** |
 | ⚡ **Redis 캐시** | 고속 데이터 처리용 Redis 설정/운영 | **[`📘 매뉴얼 보기`](./docs/redis_setup.md)** |
