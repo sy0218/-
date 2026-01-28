@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-import os, configparser, random, hashlib
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import os, configparser, random, hashlib, json
+from pathlib import Path
 
 class Get_env:
     @staticmethod
@@ -10,6 +9,14 @@ class Get_env:
             "config_path": os.environ["COLLECTOR_CONFIG_PATH"],
             "stop_dir": os.environ["COLLECTOR_STOP_DIR"],
             "stop_file": os.environ["COLLECTOR_STOP_FILE"]
+        }
+
+    @staticmethod
+    def _consumer():
+        return {
+            "config_path": os.environ["CONSUMER_CONFIG_PATH"],
+            "stop_dir": os.environ["CONSUMER_STOP_DIR"],
+            "stop_file": os.environ["CONSUMER_STOP_FILE"]
         }
 
     @staticmethod
@@ -27,7 +34,9 @@ class Get_env:
         return {
             "kafka_host": os.environ["KAFKA_HOST"],
             "schema_registry": os.environ["SCHEMA_REGISTRY"],
-            "job_topic": os.environ["JOB_TOPIC"]
+            "job_topic": os.environ["JOB_TOPIC"],
+            "ocr_topic": os.environ["OCR_TOPIC"],
+            "job_group_id": os.environ["JOB_GROUP_ID"]
         }
 
     @staticmethod
@@ -63,3 +72,32 @@ class DataPreProcessor:
             data를 SHA1 해시로 변경
         """
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
+    @staticmethod
+    def _dict_to_ndjson(dict_lst):
+        """
+            딕셔너리 리스트 → NDJSON 문자열로 변환
+            각 딕셔너리를 한 줄씩 JSON으로 직렬화
+        """
+        return "\n".join(json.dumps(d, ensure_ascii=False) for d in dict_lst)
+        
+
+class CopyToLocal:
+    """
+    주어진 경로에 데이터를 저장
+    - 경로는 튜플로 받음 : ('/nfs', '2a', 'a9', '2aa9asdfi23kludasui~')
+    - 파일명은 튜플 마지막 요소로 사용
+    """
+
+    @staticmethod
+    def save(path, data):
+        full_dir = Path(*path[:-1])
+        full_dir.mkdir(parents=True, exist_ok=True)
+        file_path = full_dir / path[-1]
+
+        if not file_path.exists(): # 파일이 없을 떄만 저장
+            with open(file_path, "wb") as f:
+                f.write(data)
+        else:
+            pass
+
+        return str(file_path.resolve())

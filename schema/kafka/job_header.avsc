@@ -6,6 +6,7 @@
     { "name": "domain", "type": "string" },
     { "name": "href", "type": "string" },
     { "name": "company", "type": "string" },
-    { "name": "title", "type": "string" }
+    { "name": "title", "type": "string" },
+    { "name": "msgid", "type": "string" }
   ]
 }

@@ -2,7 +2,10 @@
 from conf.config_log import setup_logger
 from common.job_class import Get_env, Get_properties, StopChecker, DataPreProcessor
 from common.crawling_class import ChromeDriver, JobParser
-from common.hook_class import RedisHook, KafkaHook
+from common.hook_class import RedisHook, KafkaHook, PostgresHook
+
+import psycopg2
+from psycopg2.extras import execute_values
 
 import sys, time
 logger = setup_logger(__name__)
@@ -34,6 +37,7 @@ def _main():
         collector_env = Get_env._collector()
         redis_env = Get_env._redis()
         kafka_env = Get_env._kafka()
+        pg_env = Get_env._postgres()
         properties = Get_properties(collector_env["config_path"])
 
         logger.info("환경 변수 및 설정 로드 완료")
@@ -54,11 +58,24 @@ def _main():
         # Kafka + Schema Registry 연결
         # ===============================
         kafka = KafkaHook(kafka_env["kafka_host"])
-        kafka.avro_producer_connect(
+        kafka.avro_connect(
             kafka_env["schema_registry"],
             properties["schema"]["job_header"]
         )
         logger.info("Kafka Avro Producer 연결 완료")
+
+        # ===============================
+        # Postgresql 연결 (중복 데이터 체크용)
+        # ===============================
+        postgresql = PostgresHook(
+            pg_env["pg_host"],
+            pg_env["pg_port"],
+            pg_env["pg_db"],
+            pg_env["pg_user"],
+            pg_env["pg_password"]
+        )
+        postgresql.connect()
+        logger.info("PostgreSQL 연결 완료")
 
         # ===============================
         # Chrome 브라우저 기동
@@ -91,8 +108,7 @@ def _main():
                     parser = JobParser(browser)
                     response = parser.get_response()
 
-                    redis_pipe = redis.pipeline(transaction=False)
-                    job_headers = []
+                    job_hash_map = []
                     # ===============================
                     # 채용 공고 파싱
                     # ===============================
@@ -107,39 +123,34 @@ def _main():
 
                         # href 기준 해시 (중복 판별 키)
                         href_hash = DataPreProcessor._hash(job_header["href"] + job_header["title"])
+                        job_hash_map.append((href_hash, job_header))
 
-                        # msgid 필드에 href_hash 추가
-                        job_header["msgid"] = href_hash
 
-                        # Redis pipeline 적재 및 채용공고 헤더 수집
-                        redis_pipe.sadd(redis_env["redis_jobhead_key"], href_hash)
-                        job_headers.append(job_header)
+                    if job_hash_map:
+                        with postgresql.conn.cursor() as cur:
+                            values = [(r[0],) for r in job_hash_map]
+                            sql = """
+                            INSERT INTO job.job_set (job_set)
+                            VALUES %s
+                            ON CONFLICT (job_set) DO NOTHING
+                            RETURNING job_set
+                            """
+                            inserted_rows = execute_values(cur, sql, values, fetch=True)
+                            postgresql.conn.commit()
 
-                    # Redis 전송
-                    redis_info = redis_pipe.execute()
-                    # ===============================
-                    # Redis 중복 체크 처리
-                    # ===============================
-                    for job_header, flag in zip(job_headers, redis_info):
-                        if flag == 0:
-                            logger.debug(
-                                f"중복 데이터 스킵 (Redis) | href={job_header['href']}"
-                            )
-                        else:
-                            # ===============================
-                            # Kafka 전송 ( Avro 직렬화)
-                            # ===============================
-                            kafka.produce(
-                                topic=kafka_env["job_topic"],
-                                value=job_header
-                            )
-                            logger.info(
-                                f"Kafka 전송 완료 | topic={kafka_env['job_topic']} | company={job_header['company']} | title={job_header['title']}"
-                            )
+                            # 삽입된 hash set
+                            inserted_hashes = set(r[0] for r in inserted_rows)
 
-                    # 프로듀서 버퍼에 남은 메시지 모두 전송
-                    kafka.flush()                    
-
+                            for href_hash, job_header in job_hash_map:
+                                if href_hash in inserted_hashes:
+                                    logger.info(
+                                        f"Kafka 전송 완료 | topic={kafka_env['job_topic']} | company={job_header['company']} | title={job_header['title']}"
+                                    )
+                                else:
+                                    logger.debug(
+                                        f"중복 데이터 스킵 (PostgreSQL) | href={job_header['href']}"
+                                    )
+ 
                     # ===============================
                     # 종료 플래그 체크
                     # ===============================
@@ -161,6 +172,7 @@ def _main():
         # ===============================
         browser.quit()
         redis.close()
+        postgresql.close()
         kafka.flush()
         logger.info("Collector 정상 종료")
 
