@@ -2,7 +2,7 @@ import logging, os
 from datetime import datetime
 
 
-def setup_logger(name="collector"):
+def setup_logger(name="job_project"):
     base_log_path = os.environ.get("CONSUMER_LOG_FILE", "/var/log/collector")
     today = datetime.now().strftime("%Y%m%d")
     log_file = f"{base_log_path}_{today}.log"
