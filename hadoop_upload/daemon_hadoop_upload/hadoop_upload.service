@@ -1,0 +1,23 @@
+[Unit]
+Description=Hadoop Upload (Local)
+After=network.target
+
+[Service]
+Type=simple
+# 스크립트 start 호출
+ExecStart=/work/jsy/job_project/hadoop_upload/daemon_hadoop_upload/hadoop_upload.sh start
+
+# Stop 시 스탑 파일 생성
+ExecStop=/work/jsy/job_project/hadoop_upload/daemon_hadoop_upload/hadoop_upload.sh stop
+# 프로세스가 종료될 때까지 대기
+ExecStop=/usr/bin/sh -c 'while kill -0 $MAINPID 2>/dev/null; do sleep 5; done'
+
+TimeoutStopSec=1800
+Restart=no
+
+Environment="JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
+Environment="HADOOP_HOME=/application/hadoop"
+Environment="PATH=/application/hadoop/bin:/application/hadoop/sbin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target

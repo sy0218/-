@@ -78,7 +78,7 @@ class DataPreProcessor:
             딕셔너리 리스트 → NDJSON 문자열로 변환
             각 딕셔너리를 한 줄씩 JSON으로 직렬화
         """
-        return "\n".join(json.dumps(d, ensure_ascii=False) for d in dict_lst)
+        return "\n".join(json.dumps(d, ensure_ascii=False) for d in dict_lst) + "\n"
         
 
 class CopyToLocal:
